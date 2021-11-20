@@ -9,6 +9,11 @@
             "name": "Fall Classic",
             "date": "2020-10-22 13:30:00",
             "numberOfPlaces": "13"
+        },
+        {
+            "name": "Big Wave",
+            "date": "2020-08-22 12:30:00",
+            "numberOfPlaces": "3"
         }
     ]
 }

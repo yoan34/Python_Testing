@@ -18,15 +18,58 @@ def test_landing_page(client):
     assert rv.status_code == 200
     assert data.find("Welcome to the GUDLFT Registration Portal!") != -1
 
+
 def test_login_correct_email(client):
     rv = client.post("/showSummary", data=dict(email='john@simplylift.co'), follow_redirects=True)
     data = rv.data.decode()
     assert rv.status_code == 200
-    assert data.find("<h2>Welcome,  </h2><a href=\"/logout\">Logout</a>") != -1
+    assert data.find("</h2><a href=\"/logout\">Logout</a>") != -1
+
 
 def test_login_show_message_incorrect_email(client):
     rv = client.post("/showSummary", data=dict(email='wrong@wrong.com'), follow_redirects=True)
     data = rv.data.decode()
     assert data.find("existe pas") != -1
 
+
+def test_cannot_book_more_place_than_available_on_competition(client):
+    """
+    competition 'Big Wave' have 3 places available.
+    club 'Iron Temple' have 4 points available.
+    We try to book 4 places, but the competition have 3 places left.
+    """
+    rv = client.post(
+        "/purchasePlaces",
+        data=dict(club='Iron Temple', competition='Big Wave', places=4), follow_redirects=True)
+    data = rv.data.decode()
+    assert rv.status_code == 404
+    assert data.find("The competition have only 3 places left.") != -1
+
+
+def test_can_book_place_available_on_competition(client):
+    """
+    competition 'Spring Festival' have 25 places available.
+    club 'Iron Temple' have 4 points available.
+    We book 4 places, and we have 4 places.
+    """
+    rv = client.post(
+        "/purchasePlaces",
+        data=dict(club='Iron Temple', competition='Spring Festival', places=4), follow_redirects=True)
+    data = rv.data.decode()
+    assert rv.status_code == 200
+    assert data.find('Great-booking complete!') != -1
+
+
+def test_cannot_book_more_place_than_available_on_club(client):
+   """
+   competition 'Spring Festival' have 25 places available.
+   club 'Iron Temple' have 4 points available.
+   We try to book 10 places, but we have just 4 places.
+   """
+   rv = client.post(
+       "/purchasePlaces",
+       data=dict(club='Iron Temple', competition='Spring Festival', places=10), follow_redirects=True)
+   data = rv.data.decode()
+   assert rv.status_code == 404
+   assert data.find("You do not have enough points.") != -1
 

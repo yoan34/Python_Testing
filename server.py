@@ -41,10 +41,8 @@ def create_app(config):
 
     @app.route('/book/<competition>/<club>')
     def book(competition,club):
-        print('boooook')
         foundClub = [c for c in clubs if c['name'] == club][0]
         foundCompetition = [c for c in competitions if c['name'] == competition][0]
-        print(foundClub, foundCompetition)
         if foundClub and foundCompetition:
             return render_template('booking.html',club=foundClub,competition=foundCompetition)
         else:
@@ -57,6 +55,17 @@ def create_app(config):
         competition = [c for c in competitions if c['name'] == request.form['competition']][0]
         club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
+
+        # Condition permettant de regarder si le club à suffisament de points.
+        if placesRequired > int(club['points']):
+            flash(f'You do not have enough points. {club["points"]} availables.')
+            return render_template('booking.html',club=club,competition=competition), 404
+
+        # Condition permettant de voir si la competition à les places suffisante de la demande.
+        if placesRequired > int(competition['numberOfPlaces']):
+            flash(f'The competition have only {competition["numberOfPlaces"]} places left.')
+            return render_template('booking.html',club=club,competition=competition), 404
+
         competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
         flash('Great-booking complete!')
         return render_template('welcome.html', club=club, competitions=competitions)
