@@ -30,9 +30,12 @@ def create_app(config):
 
     @app.route('/showSummary',methods=['POST'])
     def showSummary():
-        #ERROR list index out of range
-        club = [club for club in clubs if club['email'] == request.form['email']][0]
-        return render_template('welcome.html',club=club,competitions=competitions)
+        club = [club for club in clubs if club['email'] == request.form['email']]
+        if club:
+            return render_template('welcome.html',club=club,competitions=competitions), 200
+        else:
+            flash("Désolé, cet email n'existe pas.")
+            return redirect(url_for('index'))
 
 
     @app.route('/book/<competition>/<club>')
