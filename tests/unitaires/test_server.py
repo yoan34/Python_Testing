@@ -73,3 +73,26 @@ def test_cannot_book_more_place_than_available_on_club(client):
    assert rv.status_code == 404
    assert data.find("You do not have enough points.") != -1
 
+
+def test_cannot_book_less_than_1_places_on_competition(client):
+   """
+   Try to enter a negative number to book some places on a competition.
+   """
+   rv = client.post(
+       "/purchasePlaces",
+       data=dict(club='Iron Temple', competition='Spring Festival', places=-10), follow_redirects=True)
+   data = rv.data.decode()
+   assert rv.status_code == 404
+   assert data.find("You have to enter a positif number.") != -1
+ 
+def test_cannot_book_more_than_12_places_on_competition(client):
+   """
+   Try to book more than 12 places on a competition.
+   """
+   rv = client.post(
+       "/purchasePlaces",
+       data=dict(club='Iron Temple', competition='Spring Festival', places=13), follow_redirects=True)
+   data = rv.data.decode()
+   print(data)
+   assert rv.status_code == 404
+   assert data.find("book more than 12 places.") != -1

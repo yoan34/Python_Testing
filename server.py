@@ -56,6 +56,17 @@ def create_app(config):
         club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
 
+
+        # Condition pour me pas permettre de rentrer un nombre null ou négatif pour le nombre de place.
+        if placesRequired <= 0:
+           flash(f'You have to enter a positif number.')
+           return render_template('booking.html',club=club,competition=competition), 404
+
+        # Condition pour ne pas dépasser plus de 12 places à réserver.
+        if placesRequired > 12:
+           flash(f'You can\'t book more than 12 places.')
+           return render_template('booking.html',club=club,competition=competition), 404
+
         # Condition permettant de regarder si le club à suffisament de points.
         if placesRequired > int(club['points']):
             flash(f'You do not have enough points. {club["points"]} availables.')
