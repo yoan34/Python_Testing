@@ -109,14 +109,12 @@ def test_cannot_book_on_completed_competition(client):
     """
     competition 'Fall Classic' have 13 places available at 2020-10-22 13:30:00.
     club 'Iron Temple' have 4 points available.
-    We try to book 4 places on this completed competition.
     """
     rv = client.post(
-        "/purchasePlaces",
-        data=dict(club='Iron Temple', competition='Fall Classic', places=4), follow_redirects=True)
+        "/showSummary",data=dict(email='john@simplylift.co'), follow_redirects=True)
     data = rv.data.decode()
-    assert rv.status_code == 404
-    assert data.find('Cannot book places on competition completed.') != -1
+    assert rv.status_code == 200
+    assert data.find('<b>COMPLETED</b>') != -1
 
 
 def test_club_place_decrease_on_booking_place_competition(client):
@@ -136,7 +134,6 @@ def test_club_place_decrease_on_booking_place_competition(client):
 def test_show_list_competition_dashboard(client):
     rv = client.post("/showSummary", data=dict(email='john@simplylift.co'), follow_redirects=True)
     data = rv.data.decode()
-    print(data)
     assert rv.status_code == 200
     assert data.find("Spring Festival<br />") != -1
     assert data.find("Fall Classic<br />") != -1

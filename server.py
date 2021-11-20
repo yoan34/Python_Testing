@@ -13,6 +13,11 @@ def loadClubs():
 def loadCompetitions():
     with open('competitions.json') as comps:
          listOfCompetitions = json.load(comps)['competitions']
+         for competition in listOfCompetitions:
+            date, hour = competition['date'].split(' ')
+            y, m, d, h, s, ms = map(int, date.split('-') + hour.split(':'))
+            new_date = datetime.datetime(y, m, d, h, s, ms)
+            competition['date'] = new_date
          return listOfCompetitions
 
 
@@ -33,7 +38,7 @@ def create_app(config):
     def showSummary():
         club = [club for club in clubs if club['email'] == request.form['email']]
         if club:
-            return render_template('welcome.html',club=club[0],competitions=competitions, clubs=clubs), 200
+            return render_template('welcome.html',club=club[0],competitions=competitions, date=datetime.datetime.now()), 200
         else:
             flash("Désolé, cet email n'existe pas.")
             return redirect(url_for('index'))
@@ -82,18 +87,10 @@ def create_app(config):
             flash(f'The competition have only {competition["numberOfPlaces"]} places left.')
             return render_template('booking.html',club=club,competition=competition), 404
 
-        # Condition permettant de vérifier si la compétition est terminé ou non.
-        date, hour = competition['date'].split(' ')
-        y, m, d, h, s, ms = map(int, date.split('-') + hour.split(':'))
-        competition_date = datetime.datetime(y, m, d, h, s, ms)
-        if datetime.datetime.now() > competition_date:
-            flash(f'Cannot book places on competition completed.')
-            return render_template('booking.html',club=club,competition=competition), 404
-
         competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
         club["points"] = str(int(club["points"]) - int(placesRequired))
         flash('Great-booking complete!')
-        return render_template('welcome.html', club=club, competitions=competitions)
+        return render_template('welcome.html', club=club, competitions=competitions, date=datetime.datetime.now())
 
 
 
