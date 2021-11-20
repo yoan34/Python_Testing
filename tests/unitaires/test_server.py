@@ -32,6 +32,13 @@ def test_login_show_message_incorrect_email(client):
     assert data.find("existe pas") != -1
 
 
+def test_logout(client):
+    rv = client.get("/logout", follow_redirects=True)
+    data = rv.data.decode()
+    assert rv.status_code == 200
+    assert data.find("Welcome to the GUDLFT Registration Portal!") != -1
+
+
 def test_cannot_book_more_place_than_available_on_competition(client):
     """
     competition 'Big Wave' have 3 places available.
@@ -124,3 +131,24 @@ def test_club_place_decrease_on_booking_place_competition(client):
    data = rv.data.decode()
    assert rv.status_code == 200
    assert data.find('Points available: 2') != -1
+
+
+def test_show_list_competition_dashboard(client):
+    rv = client.post("/showSummary", data=dict(email='john@simplylift.co'), follow_redirects=True)
+    data = rv.data.decode()
+    print(data)
+    assert rv.status_code == 200
+    assert data.find("Spring Festival<br />") != -1
+    assert data.find("Fall Classic<br />") != -1
+    assert data.find("Big Wave<br />") != -1
+
+
+def test_show_list_club_dashboard(client):
+    rv = client.post("/showClubs", data=dict(email='john@simplylift.co'), follow_redirects=True)
+    data = rv.data.decode()
+    assert rv.status_code == 200
+    assert data.find("Simply Lift<br />") != -1
+    assert data.find("Iron Temple<br />") != -1
+    assert data.find("She Lifts<br />") != -1
+
+

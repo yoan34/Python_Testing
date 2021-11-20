@@ -33,12 +33,16 @@ def create_app(config):
     def showSummary():
         club = [club for club in clubs if club['email'] == request.form['email']]
         if club:
-            print("hello")
-            return render_template('welcome.html',club=club[0],competitions=competitions), 200
+            return render_template('welcome.html',club=club[0],competitions=competitions, clubs=clubs), 200
         else:
             flash("Désolé, cet email n'existe pas.")
             return redirect(url_for('index'))
 
+
+    @app.route('/showClubs',methods=['POST'])
+    def showClubs():
+        club = [club for club in clubs if club['email'] == request.form['email']]
+        return render_template('clubs.html',club=club[0], clubs=clubs), 200
 
     @app.route('/book/<competition>/<club>')
     def book(competition,club):
@@ -92,7 +96,6 @@ def create_app(config):
         return render_template('welcome.html', club=club, competitions=competitions)
 
 
-    # TODO: Add route for points display
 
     @app.route('/logout')
     def logout():

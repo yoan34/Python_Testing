@@ -16,20 +16,16 @@
        </ul>
     {% endif%}
     Points available: {{club['points']}}
-    <form action="showClubs" method="post">
+    <form action="showSummary" method="post">
         <input type="hidden" name="email" value="{{club['email']}}"/>
-        <button type="submit">Show clubs</button>
+        <button type="submit">Show competitions</button>
     </form>
-    <h3>Competitions:</h3>
+    <h3>Clubs:</h3>
     <ul>
-        {% for comp in competitions%}
+        {% for c in clubs%}
         <li>
-            {{comp['name']}}<br />
-            Date: {{comp['date']}}</br>
-            Number of Places: {{comp['numberOfPlaces']}}
-            {%if comp['numberOfPlaces']|int >0%}
-            <a href="{{ url_for('book',competition=comp['name'],club=club['name']) }}">Book Places</a>
-            {%endif%}
+            {{c['name']}}<br />
+            Number of Points: {{c['points']}}
         </li>
         <hr />
         {% endfor %}
