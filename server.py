@@ -87,6 +87,7 @@ def create_app(config):
             return render_template('booking.html',club=club,competition=competition), 404
 
         competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
+        club["points"] = str(int(club["points"]) - int(placesRequired))
         flash('Great-booking complete!')
         return render_template('welcome.html', club=club, competitions=competitions)
 

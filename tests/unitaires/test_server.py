@@ -110,3 +110,17 @@ def test_cannot_book_on_completed_competition(client):
     data = rv.data.decode()
     assert rv.status_code == 404
     assert data.find('Cannot book places on competition completed.') != -1
+
+
+def test_club_place_decrease_on_booking_place_competition(client):
+   """
+   competition 'Spring Festival' have 25 places available.
+   club 'Iron Temple' have 4 points available.
+   We take 2 places, so we have 2 places left.
+   """
+   rv = client.post(
+       "/purchasePlaces",
+       data=dict(club='Iron Temple', competition='Spring Festival', places=2), follow_redirects=True)
+   data = rv.data.decode()
+   assert rv.status_code == 200
+   assert data.find('Points available: 2') != -1
