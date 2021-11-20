@@ -1,4 +1,5 @@
 import json
+import datetime
 from flask import Flask,render_template,request,redirect,flash,url_for
 
 
@@ -75,6 +76,14 @@ def create_app(config):
         # Condition permettant de voir si la competition à les places suffisante de la demande.
         if placesRequired > int(competition['numberOfPlaces']):
             flash(f'The competition have only {competition["numberOfPlaces"]} places left.')
+            return render_template('booking.html',club=club,competition=competition), 404
+
+        # Condition permettant de vérifier si la compétition est terminé ou non.
+        date, hour = competition['date'].split(' ')
+        y, m, d, h, s, ms = map(int, date.split('-') + hour.split(':'))
+        competition_date = datetime.datetime(y, m, d, h, s, ms)
+        if datetime.datetime.now() > competition_date:
+            flash(f'Cannot book places on competition completed.')
             return render_template('booking.html',club=club,competition=competition), 404
 
         competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired

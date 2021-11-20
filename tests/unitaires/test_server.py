@@ -85,6 +85,7 @@ def test_cannot_book_less_than_1_places_on_competition(client):
    assert rv.status_code == 404
    assert data.find("You have to enter a positif number.") != -1
  
+
 def test_cannot_book_more_than_12_places_on_competition(client):
    """
    Try to book more than 12 places on a competition.
@@ -93,6 +94,19 @@ def test_cannot_book_more_than_12_places_on_competition(client):
        "/purchasePlaces",
        data=dict(club='Iron Temple', competition='Spring Festival', places=13), follow_redirects=True)
    data = rv.data.decode()
-   print(data)
    assert rv.status_code == 404
    assert data.find("book more than 12 places.") != -1
+
+
+def test_cannot_book_on_completed_competition(client):
+    """
+    competition 'Fall Classic' have 13 places available at 2020-10-22 13:30:00.
+    club 'Iron Temple' have 4 points available.
+    We try to book 4 places on this completed competition.
+    """
+    rv = client.post(
+        "/purchasePlaces",
+        data=dict(club='Iron Temple', competition='Fall Classic', places=4), follow_redirects=True)
+    data = rv.data.decode()
+    assert rv.status_code == 404
+    assert data.find('Cannot book places on competition completed.') != -1
