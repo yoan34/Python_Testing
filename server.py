@@ -32,7 +32,8 @@ def create_app(config):
     def showSummary():
         club = [club for club in clubs if club['email'] == request.form['email']]
         if club:
-            return render_template('welcome.html',club=club,competitions=competitions), 200
+            print("hello")
+            return render_template('welcome.html',club=club[0],competitions=competitions), 200
         else:
             flash("Désolé, cet email n'existe pas.")
             return redirect(url_for('index'))
@@ -40,8 +41,10 @@ def create_app(config):
 
     @app.route('/book/<competition>/<club>')
     def book(competition,club):
+        print('boooook')
         foundClub = [c for c in clubs if c['name'] == club][0]
         foundCompetition = [c for c in competitions if c['name'] == competition][0]
+        print(foundClub, foundCompetition)
         if foundClub and foundCompetition:
             return render_template('booking.html',club=foundClub,competition=foundCompetition)
         else:
