@@ -2,23 +2,7 @@ import json
 import datetime
 from flask import Flask,render_template,request,redirect,flash,url_for
 
-
-
-def loadClubs():
-    with open('clubs.json') as c:
-         listOfClubs = json.load(c)['clubs']
-         return listOfClubs
-
-
-def loadCompetitions():
-    with open('competitions.json') as comps:
-         listOfCompetitions = json.load(comps)['competitions']
-         for competition in listOfCompetitions:
-            date, hour = competition['date'].split(' ')
-            y, m, d, h, s, ms = map(int, date.split('-') + hour.split(':'))
-            new_date = datetime.datetime(y, m, d, h, s, ms)
-            competition['date'] = new_date
-         return listOfCompetitions
+from data import loadClubs, loadCompetitions, loadTestCompetitions, loadTestClubs
 
 
 def create_app(config):
@@ -26,9 +10,12 @@ def create_app(config):
     app.config.from_object('config')
     app.config["TESTING"] = config.get("TESTING")
     app.secret_key = 'something_special'
-
-    competitions = loadCompetitions()
-    clubs = loadClubs()
+    if not app.config["TESTING"]:
+        competitions = loadCompetitions()
+        clubs = loadClubs()
+    else:
+        competitions = loadTestCompetitions()
+        clubs = loadTestClubs()
 
     @app.route('/')
     def index():
