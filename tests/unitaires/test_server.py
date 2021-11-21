@@ -92,6 +92,7 @@ class TestBook:
         assert rv.status_code == 200
         assert data.find('<li>Something went wrong-please try again</li>') != -1
 
+
 class TestPurchasePlaces:
 
     def test_cannot_book_more_place_than_available_on_competition(self, client):
