@@ -77,6 +77,21 @@ class TestShowSummary:
         assert data.find("club3<br />") != -1
 
 
+class TestBook:
+
+    def test_reach_boook_page(self, client):
+        rv = client.get('/book/competition1/club1', follow_redirects=True)
+        data = rv.data.decode()
+        assert rv.status_code == 200
+        assert data.find('<title>Booking for competition1 || GUDLFT</title>') != -1
+        assert data.find('<label for="places">How many places?</label><input type="number" name="places" id=""/>') != -1
+
+    def test_not_found(self, client):
+        rv = client.get("/book/competition1/club", follow_redirects=True)
+        data = rv.data.decode()
+        assert rv.status_code == 200
+        assert data.find('<li>Something went wrong-please try again</li>') != -1
+
 class TestPurchasePlaces:
 
     def test_cannot_book_more_place_than_available_on_competition(self, client):
