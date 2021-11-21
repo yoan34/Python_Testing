@@ -4,4 +4,5 @@ lib
 .Python
 env/
 .envrc
+.coverage
 __pycache__
