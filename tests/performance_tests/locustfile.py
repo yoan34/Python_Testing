@@ -9,15 +9,15 @@ class PorjectperfTest(HttpUser):
 
     @task
     def showSummary(self):
-        self.client.post('/showSummary', {"email": "john@simplylift.co"})
+        self.client.post('/showSummary', {"email": "club1@test.com"})
 
     @task
     def showClubs(self):
-        self.client.post('/showClubs', {"email": "john@simplylift.co"})
+        self.client.post('/showClubs', {"email": "club1@test.com"})
 
-    @task(3)
+    @task
     def book(self):
-        self.client.get('book/Spring Festival/Simply Lift')
+        self.client.get('book/competition1/club1')
 
     @task
     def logout(self):

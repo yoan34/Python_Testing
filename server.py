@@ -51,9 +51,15 @@ def create_app(config):
     def purchasePlaces():
         competition = [c for c in competitions if c['name'] == request.form['competition']][0]
         club = [c for c in clubs if c['name'] == request.form['club']][0]
-        placesRequired = int(request.form['places'])
+        
+        try:
+            placesRequired = int(request.form['places'])
+        except Exception:
+            flash(f'You have to enter a positif number.')
+            return render_template('booking.html',club=club,competition=competition), 404
 
 
+        print(placesRequired)
         # Condition pour me pas permettre de rentrer un nombre null ou négatif pour le nombre de place.
         if placesRequired <= 0:
            flash(f'You have to enter a positif number.')

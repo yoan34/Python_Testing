@@ -8,7 +8,7 @@ from selenium.webdriver.firefox.service import Service
 service = Service(rf"{os.path.dirname(os.path.realpath(__file__))}/geckodriver")
 browser = webdriver.Firefox(service=service)
 
-def test_book_something():
+def test_login_booking_logout():
     """
     - test la connection avec une adresse email
     - test d'affichage de la liste des clubs.

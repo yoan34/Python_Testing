@@ -952,3 +952,54 @@ DevTools listening on ws://localhost:38169/devtools/browser/d16b0081-ded5-4138-b
 JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
 JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
 1637579619064	Marionette	INFO	Stopped listening on port 39039
+1637579808020	geckodriver	INFO	Listening on 127.0.0.1:53235
+1637579808024	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "40755" "-no-remote" "-profile" "/tmp/rust_mozprofile5amH5C"
+1637579809161	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofile5amH5C/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:40755/devtools/browser/e9cadcfd-0386-49f1-8a43-0bfa7a817e06
+1637579810721	Marionette	INFO	Listening on port 41583
+1637579810748	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1637579814861	Marionette	INFO	Stopped listening on port 41583
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1637579875728	geckodriver	INFO	Listening on 127.0.0.1:40111
+1637579875735	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "48873" "-no-remote" "-profile" "/tmp/rust_mozprofileYg298c"
+1637579876826	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileYg298c/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:48873/devtools/browser/093b3177-e2e8-4e14-ad04-55254e3e348d
+1637579878428	Marionette	INFO	Listening on port 44207
+1637579878463	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1637579884302	Marionette	INFO	Stopped listening on port 44207
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1637579891884	geckodriver	INFO	Listening on 127.0.0.1:37879
+1637579891891	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "49359" "-no-remote" "-profile" "/tmp/rust_mozprofilehZdDhE"
+1637579892969	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilehZdDhE/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:49359/devtools/browser/ca49b2af-e101-48f2-bc69-4d44feecd784
+1637579894559	Marionette	INFO	Listening on port 34619
+1637579894613	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1637579895088	Marionette	INFO	Stopped listening on port 34619
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1637579918511	geckodriver	INFO	Listening on 127.0.0.1:45851
+1637579918516	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "34179" "-no-remote" "-profile" "/tmp/rust_mozprofilef1IPTq"
+1637579919895	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilef1IPTq/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:34179/devtools/browser/bd59e652-2779-4b3d-9d48-86e95c1cb5c1
+1637579921539	Marionette	INFO	Listening on port 43035
+1637579921669	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1637579922133	Marionette	INFO	Stopped listening on port 43035
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
