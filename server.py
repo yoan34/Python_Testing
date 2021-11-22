@@ -1,4 +1,4 @@
-import json
+import os
 import datetime
 from flask import Flask,render_template,request,redirect,flash,url_for
 
@@ -9,10 +9,10 @@ def create_app(config):
     app = Flask(__name__)
     app.config.from_object('config')
     app.config["TESTING"] = config.get("TESTING")
-    app.secret_key = 'something_special'
     if not app.config["TESTING"]:
-        competitions = loadCompetitions()
-        clubs = loadClubs()
+        print(os.environ.get('FLASK_TESTING'))
+        competitions = loadTestCompetitions() if os.environ.get('FLASK_TESTING') == 'True' else loadCompetitions()
+        clubs = loadTestClubs() if os.environ.get('FLASK_TESTING') == 'True' else loadClubs()
     else:
         competitions = loadTestCompetitions()
         clubs = loadTestClubs()

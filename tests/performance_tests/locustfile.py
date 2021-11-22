@@ -15,7 +15,7 @@ class PorjectperfTest(HttpUser):
     def showClubs(self):
         self.client.post('/showClubs', {"email": "john@simplylift.co"})
 
-    @task
+    @task(3)
     def book(self):
         self.client.get('book/Spring Festival/Simply Lift')
 

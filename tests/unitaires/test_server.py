@@ -23,7 +23,7 @@ class TestHome:
         rv = client.post("/showSummary", data=dict(email='club1@test.com'), follow_redirects=True)
         data = rv.data.decode()
         assert rv.status_code == 200
-        assert data.find("</h2><a href=\"/logout\">Logout</a>") != -1
+        assert data.find("</h2><a class=\"logout\" href=\"/logout\">Logout</a>") != -1
 
     def test_login_show_message_incorrect_email(slef, client):
         rv = client.post("/showSummary", data=dict(email='wrong@wrong.com'), follow_redirects=True)
@@ -37,7 +37,7 @@ class TestShowSummary:
         rv = client.post('/showSummary',data=dict(email='club1@test.com'), follow_redirects=True)
         data = rv.data.decode()
         assert rv.status_code == 200
-        assert data.find("<h2>Welcome, club1@test.com </h2><a href=\"/logout\">Logout</a>") != -1
+        assert data.find("<h2>Welcome, club1@test.com </h2><a class=\"logout\" href=\"/logout\">Logout</a>") != -1
 
     def test_logout(self, client):
         rv = client.get("/logout", follow_redirects=True)
