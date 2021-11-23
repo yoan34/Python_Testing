@@ -112,11 +112,11 @@ class TestPurchasePlaces:
         """
         competition 'competition1' have 25 places available.
         club 'club2' have 4 points available.
-        We book 4 places, and we have 4 places.
+        We book 1 places, and we have 4 points.
         """
         rv = client.post(
             "/purchasePlaces",
-            data=dict(club='club2', competition='competition1', places=4), follow_redirects=True)
+            data=dict(club='club2', competition='competition1', places=1), follow_redirects=True)
         data = rv.data.decode()
         assert rv.status_code == 200
         assert data.find('Great-booking complete!') != -1
@@ -160,14 +160,14 @@ class TestPurchasePlaces:
         """
         competition 'competition1' have 25 places available.
         club 'club2' have 4 points available.
-        We take 2 places, so we have 2 places left.
+        We take 1 places, so we have 1 points left.
         """
         rv = client.post(
             "/purchasePlaces",
-            data=dict(club='club2', competition='competition1', places=2), follow_redirects=True)
+            data=dict(club='club2', competition='competition1', places=1), follow_redirects=True)
         data = rv.data.decode()
         assert rv.status_code == 200
-        assert data.find('Points available: 2') != -1
+        assert data.find('Points available: 1') != -1
 
 
 

@@ -1021,3 +1021,25 @@ DevTools listening on ws://localhost:33089/devtools/browser/253cc970-623a-4323-a
 1637672663008	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
 1637672665367	Marionette	INFO	Stopped listening on port 41629
 console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1637674429244	geckodriver	INFO	Listening on 127.0.0.1:47027
+1637674429251	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "40933" "-no-remote" "-profile" "/tmp/rust_mozprofilevXlB45"
+1637674430671	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilevXlB45/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:40933/devtools/browser/eec8c593-5ac7-47c6-bd5b-453cc6fe0664
+1637674432664	Marionette	INFO	Listening on port 46079
+1637674432783	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1637674572256	geckodriver	INFO	Listening on 127.0.0.1:60133
+1637674572263	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "--remote-debugging-port" "56725" "-no-remote" "-profile" "/tmp/rust_mozprofileCZfIDT"
+1637674573611	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofileCZfIDT/search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:56725/devtools/browser/f22a5c7f-a0fc-430a-9c3a-27895c168c06
+1637674575674	Marionette	INFO	Listening on port 42021
+1637674575787	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1637674576293	Marionette	INFO	Stopped listening on port 42021
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+

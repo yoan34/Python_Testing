@@ -40,7 +40,7 @@ def test_login_booking_logout():
     assert browser.find_element(By.TAG_NAME, 'h2').text == 'competition1'
 
     places = browser.find_element(By.NAME, 'places')
-    places.send_keys(10)
+    places.send_keys(3)
     book = browser.find_element(By.TAG_NAME, 'button')
     book.click()
     assert 'Great-booking complete!' in browser.find_element(By.CSS_SELECTOR, 'ul li').text
