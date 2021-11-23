@@ -10,7 +10,6 @@ def create_app(config):
     app.config.from_object('config')
     app.config["TESTING"] = config.get("TESTING")
     if not app.config["TESTING"]:
-        print(os.environ.get('FLASK_TESTING'))
         competitions = loadTestCompetitions() if os.environ.get('FLASK_TESTING') == 'True' else loadCompetitions()
         clubs = loadTestClubs() if os.environ.get('FLASK_TESTING') == 'True' else loadClubs()
     else:
@@ -59,7 +58,6 @@ def create_app(config):
             return render_template('booking.html',club=club,competition=competition), 404
 
 
-        print(placesRequired)
         # Condition pour me pas permettre de rentrer un nombre null ou négatif pour le nombre de place.
         if placesRequired <= 0:
            flash(f'You have to enter a positif number.')
@@ -71,8 +69,9 @@ def create_app(config):
            return render_template('booking.html',club=club,competition=competition), 404
 
         # Condition permettant de regarder si le club à suffisament de points.
-        if placesRequired > int(club['points']):
-            flash(f'You do not have enough points. {club["points"]} availables.')
+        if 3 * placesRequired > int(club['points']):
+            flash(f'You do not have enough points. {club["points"]} availables.\
+                  Can book only {int(club["points"])//3} places.')
             return render_template('booking.html',club=club,competition=competition), 404
 
         # Condition permettant de voir si la competition à les places suffisante de la demande.
@@ -81,7 +80,7 @@ def create_app(config):
             return render_template('booking.html',club=club,competition=competition), 404
 
         competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
-        club["points"] = str(int(club["points"]) - int(placesRequired))
+        club["points"] = str(int(club["points"]) - int(placesRequired)*3)
         flash('Great-booking complete!')
         return render_template('welcome.html', club=club, competitions=competitions, date=datetime.datetime.now())
 
