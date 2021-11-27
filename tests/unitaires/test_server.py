@@ -169,6 +169,19 @@ class TestPurchasePlaces:
         assert rv.status_code == 200
         assert data.find('Points available: 1') != -1
 
+    def test_raise_exception_on_wrong_places(self, client):
+        """
+        Try to enter a string in 'places' instead of a number. It will raise an exception.
+        """
+        with pytest.raises(Exception):
+            rv = client.post(
+                "/purchasePlaces",
+                data=dict(club='club2', competition='competition1', places='error'), follow_redirects=True)
+            data = rv.data.decode()
+            assert rv.status_code == 200
+            assert data.find("You have to enter a positif number.") != -1
+
+
 
 
 
